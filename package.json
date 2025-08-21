@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Full-stack blog with React frontend and Express backend",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm install && npm start",
     "dev:frontend": "cd frontend && npm start",
     "dev:backend": "cd backend && npm run dev",
-    "build:frontend": "cd frontend && npm run build",
-    "start:backend": "cd backend && npm start",
     "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
   },
   "keywords": ["react", "express", "blog", "fullstack"],
