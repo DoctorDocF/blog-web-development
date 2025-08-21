@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -8,6 +9,9 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
 // Mock data for blog posts
 let posts = [
@@ -29,7 +33,7 @@ let posts = [
   }
 ];
 
-// Routes
+// API Routes
 app.get('/api/posts', (req, res) => {
   res.json(posts);
 });
@@ -89,6 +93,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Blog API is running' });
 });
 
+// Serve React app for all other requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📱 Frontend will be served from React build`);
 });
